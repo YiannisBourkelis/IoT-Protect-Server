@@ -27,5 +27,6 @@ Route::group([
         Route::get('user', 'AuthController@user');
         Route::get('test', 'AuthController@test');
         Route::apiResource('iot', 'IoTController');
+        Route::post('iot/data', 'IoTController@data');
     });
 });
