@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
+use App\Classes\IoTProtectDeviceInfo;
+
 class AuthController extends Controller
 {
     /**
@@ -96,7 +98,15 @@ class AuthController extends Controller
 
     public function test(Request $request)
     {
-        return "ok";
+        //return "ok";
+
+        $a = array(
+            new IoTProtectDeviceInfo(),
+            new IoTProtectDeviceInfo(),
+            new IoTProtectDeviceInfo()
+        );
+        return json_encode($a);
+        //return $a->Photoresitor;
         //return response()->json($request->user());
     }
 }
