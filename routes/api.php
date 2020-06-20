@@ -14,19 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-    'prefix' => 'auth'
-], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
+    Route::post('auth/login', 'AuthController@login');
+    Route::post('auth/signup', 'AuthController@signup');
   
-    Route::group([
-      'middleware' => 'auth:api'
-    ], function() {
-        Route::get('logout', 'AuthController@logout');
-        Route::get('user', 'AuthController@user');
-        Route::get('test', 'AuthController@test');
-        Route::apiResource('iot', 'IoTController');
-        Route::post('iot/data', 'IoTController@data');
-    });
-});
+    
+    Route::middleware('auth:api')->get('auth/logout', 'AuthController@logout');
+    Route::middleware('auth:api')->get('auth/user', 'AuthController@user');
+    Route::middleware('auth:api')->get('auth/test', 'AuthController@test');
+    Route::middleware('auth:api')->apiResource('auth/iot', 'IoTController');
+    Route::middleware('auth:api')->post('auth/iot/data', 'IoTController@data');

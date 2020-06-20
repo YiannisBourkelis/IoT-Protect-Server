@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "SiteController@home");
 
-Route::get('/login', function () {
-    return "Unauthenticated";
-})->name('login');
+Route::get('/login', "SiteController@Unauthenticated")->name('login');
