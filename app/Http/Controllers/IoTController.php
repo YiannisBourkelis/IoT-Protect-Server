@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Classes\IoTProtectDeviceInfo;
+use App\IoTDeviceInfo;
+use Auth;
 
 class IoTController extends Controller
 {
@@ -14,12 +16,8 @@ class IoTController extends Controller
      */
     public function index()
     {
-        $a = array(
-            new IoTProtectDeviceInfo(),
-            new IoTProtectDeviceInfo(),
-            new IoTProtectDeviceInfo()
-        );
-        return json_encode($a);
+        $user_devices = IoTDeviceInfo::where('user_id', Auth::user()->id)->get();
+        return json_encode($user_devices);
     }
 
     /**
@@ -30,7 +28,14 @@ class IoTController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->getContent();
+        $iot_device = new IoTDeviceInfo;
+        $iot_device->user_id = Auth::user()->id;
+        $iot_device->place = "Σπίτι";
+        $iot_device->spot = "Κουζίνα";
+        $iot_device->model = 1;
+        $iot_device->revision = 0;
+        $iot_device->save();
+        return $iot_device->id;
     }
 
     /**
