@@ -71,7 +71,8 @@ class IoTController extends Controller
      */
     public function destroy($id)
     {
-        return "delete > " . $id;
+        $result = IoTDeviceInfo::destroy($id);
+        return "delete > " . $id . " , result:" . $result;
     }
 
         /**

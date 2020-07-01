@@ -24,7 +24,7 @@ class CreateIoTDeviceInfoTable extends Migration
             $table->unsignedTinyInteger('revision');
             
             //foreign keys
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
