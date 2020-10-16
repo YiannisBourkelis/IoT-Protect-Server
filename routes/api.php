@@ -14,12 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-    Route::post('auth/login', 'AuthController@login');
-    Route::post('auth/signup', 'AuthController@signup');
-  
-    
-    Route::middleware('auth:api')->get('auth/logout', 'AuthController@logout');
-    Route::middleware('auth:api')->get('auth/user', 'AuthController@user');
-    Route::middleware('auth:api')->get('auth/test', 'AuthController@test');
-    Route::middleware('auth:api')->apiResource('auth/iot', 'IoTController');
-    Route::middleware('auth:api')->post('auth/iot/data', 'IoTController@data');
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});

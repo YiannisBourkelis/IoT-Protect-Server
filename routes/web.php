@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', "SiteController@home");
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/login', "SiteController@Unauthenticated")->name('login');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
