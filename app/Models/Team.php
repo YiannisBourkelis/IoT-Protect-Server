@@ -38,4 +38,9 @@ class Team extends JetstreamTeam
         'updated' => TeamUpdated::class,
         'deleted' => TeamDeleted::class,
     ];
+
+    public function device()
+    {
+        return $this->hasOne('App\Models\Device');
+    }
 }
