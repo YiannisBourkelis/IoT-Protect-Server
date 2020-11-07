@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Team;
-use App\Models\Device;
 use App\Models\SmokeDetectorMeasurement;
 
 class DeviceController extends Controller
@@ -15,12 +14,9 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id)
+    public function index()
     {
-        return Auth::user()->ownedTeams()->with('device')->get();
-        //return Auth::user()->ownedTeams()->get();
-        //return Auth::user()->AllTeams();
-        //return 'ok';
+        return Auth::user()->ownedTeams()->with('latestSmokeDetectorMeasurement')->where('personal_team', 0)->get();
     }
 
     public function read_measurements($team_id)
@@ -34,19 +30,7 @@ class DeviceController extends Controller
             return response(__METHOD__.", line:".__LINE__, 401);
         }
 
-        //$device = $team->device()->first();
-        //return $device->measurements()->get();
-
-        return $team->device()->first()->measurements()->simplePaginate(15);
-
-        //$measurements = SmokeDetectorMeasurement::find("device_id", $device->id);
-
-        //return $measurements;
-
-        //return $team->with('device.measurements')->get();
-
-        //$device = $team->device()->with('measurements')->get();
-        //return $device;
+        return $team->measurements()->simplePaginate(30);
     }
 
     public function read_last_measurement($team_id)
@@ -60,19 +44,7 @@ class DeviceController extends Controller
             return response(__METHOD__.", line:".__LINE__, 401);
         }
 
-        //$device = $team->device()->first();
-        //return $device->measurements()->get();
-
-        return $team->device()->first()->measurements()->latest('id')->first();
-
-        //$measurements = SmokeDetectorMeasurement::find("device_id", $device->id);
-
-        //return $measurements;
-
-        //return $team->with('device.measurements')->get();
-
-        //$device = $team->device()->with('measurements')->get();
-        //return $device;
+        return $team->measurements()->latest('id')->first();
     }
 
 
@@ -88,19 +60,18 @@ class DeviceController extends Controller
         *  ελεγχος οτι ο χρήστης που έστειλε το request
         *  είναι μέλος της team
         */
-        $team = Team::find($request->team_id);
-        if (! ($team && Auth::user()->belongsToTeam($team))) {
-            return response(__METHOD__.", line:".__LINE__, 401);
-        }
+        $new_team = new Team;
+        $new_team->user_id = Auth::user()->id;
+        $new_team->name = $request->input('place').'\\'.$request->input('location');
+        $new_team->personal_team = 0;
+        $new_team->place = $request->input('place');
+        $new_team->location = $request->input('location');
+        $new_team->type = $request->input('type');
+        $new_team->model = $request->input('model');
+        $new_team->revision = $request->input('revision');
+        $new_team->save();
 
-        
-        $new_item = new Device();
-        $new_item->fill($request->all());
-        $new_item->team_id = $team->id;
-        //TODO: validation
-        $new_item->save();
-
-        return $new_item;
+        return $new_team;
     }
 
     public function add_measurement(Request $request)
@@ -110,9 +81,8 @@ class DeviceController extends Controller
         *  είναι μέλος της team
         */
 
-        //return 'ok';
-        $device = Device::find($request->device_id);
-        $team = Team::find($device->team_id);
+
+        $team = Team::find($request->team_id);
 
         if (! ($team && Auth::user()->belongsToTeam($team))) {
             return response(__METHOD__.", line:".__LINE__, 401);
@@ -120,7 +90,7 @@ class DeviceController extends Controller
 
         $new_item = new SmokeDetectorMeasurement();
         $new_item->fill($request->all());
-        $new_item->device_id = $device->id;
+        $new_item->team_id = $team->id;
         //TODO: validation
         $new_item->save();
 

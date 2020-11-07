@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDevicesTable extends Migration
+class CreateSmokeDetectorMeasurementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,14 @@ class CreateDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('devices', function (Blueprint $table) {
+        Schema::create('measurements_smoke_detector', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('team_id');
-            $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('team_id')->references('id')->on('teams')->cascadeOnDelete();
 
+            $table->integer('photoresistor');
             $table->timestamps();
-
-            $table->string('place',64);
-            $table->string('location',64);
-            $table->unsignedTinyInteger('type');
-            $table->unsignedTinyInteger('model');
-            $table->unsignedTinyInteger('revision');
         });
     }
 
@@ -36,6 +31,6 @@ class CreateDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devices');
+        Schema::dropIfExists('measurements_smoke_detector');
     }
 }

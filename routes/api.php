@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('user/{user}/devices', [DeviceController::class, 'index'])->middleware('auth:sanctum');
+Route::get('user/devices', [DeviceController::class, 'index'])->middleware('auth:sanctum');
 Route::post('user/device/create', [DeviceController::class, 'createme'])->middleware('auth:sanctum');
 Route::post('/user/device/measurement', [DeviceController::class, 'add_measurement'])->middleware('auth:sanctum');
 Route::get('device/{team_id}/measurements', [DeviceController::class, 'read_measurements'])->middleware('auth:sanctum');
