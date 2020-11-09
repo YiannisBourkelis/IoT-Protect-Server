@@ -50,6 +50,11 @@ class Team extends JetstreamTeam
         return $this->hasOne(SmokeDetectorMeasurement::class)->latest('id');
     }
 
+    public function oldestSmokeDetectorMeasurement()
+    {
+        return $this->hasOne(SmokeDetectorMeasurement::class)->oldest('id');
+    }
+
     public function measurements()
     {
         return $this->hasMany(SmokeDetectorMeasurement::class);

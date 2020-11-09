@@ -16,7 +16,10 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        return Auth::user()->ownedTeams()->with('latestSmokeDetectorMeasurement')->where('personal_team', 0)->get();
+        return Auth::user()->ownedTeams()
+                        ->with(['latestSmokeDetectorMeasurement', 'oldestSmokeDetectorMeasurement'])
+                        ->where('personal_team', 0)
+                        ->simplePaginate(30);
     }
 
     public function read_measurements($team_id)
