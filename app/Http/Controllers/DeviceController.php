@@ -33,7 +33,7 @@ class DeviceController extends Controller
             return response(__METHOD__.", line:".__LINE__, 401);
         }
 
-        return $team->measurements()->simplePaginate(30);
+        return $team->measurements()->orderByDesc('id')->simplePaginate(30);
     }
 
     public function read_last_measurement($team_id)
