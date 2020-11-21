@@ -86,13 +86,17 @@ class DeviceController extends Controller
         */
 
 
+        
         $team = Team::find($request->team_id);
 
+        /*
         if (! ($team && Auth::user()->belongsToTeam($team))) {
             return response(__METHOD__.", line:".__LINE__, 401);
         }
+        */
+        
 
-        if ($team->type === 1){
+        if ($team && $team->type === 1){
             $new_item = new SmokeDetectorMeasurement();
             $new_item->fill($request->all());
             $new_item->team_id = $team->id;
