@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Team;
 use App\Models\SmokeDetectorMeasurement;
+use App\Models\EnvMonStationMeasurement;
 
 class DeviceController extends Controller
 {
@@ -91,13 +92,29 @@ class DeviceController extends Controller
             return response(__METHOD__.", line:".__LINE__, 401);
         }
 
-        $new_item = new SmokeDetectorMeasurement();
-        $new_item->fill($request->all());
-        $new_item->team_id = $team->id;
-        //TODO: validation
-        $new_item->save();
+        if ($team->type === 1){
+            $new_item = new SmokeDetectorMeasurement();
+            $new_item->fill($request->all());
+            $new_item->team_id = $team->id;
 
-        return $new_item;
+            //TODO: validation
+            $new_item->save();
+    
+            return $new_item;
+        }
+
+        if ($team->type === 2){
+            $new_item = new EnvMonStationMeasurement();
+            $new_item->fill($request->all());
+            $new_item->team_id = $team->id;
+
+            //TODO: validation
+            $new_item->save();
+    
+            return $new_item;
+        }
+
+
 
         //return $device->team()->get();
     }
