@@ -110,7 +110,7 @@ class DeviceController extends Controller
         //if ($team->type === 2){
             $new_item = new EnvMonStationMeasurement();
             $new_item->fill($request->all());
-            $new_item->team_id = 3; //$team->id;
+            $new_item->team_id = $team->id;
 
             //TODO: validation
             $new_item->save();
