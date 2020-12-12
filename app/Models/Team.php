@@ -7,6 +7,7 @@ use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
 use App\Models\SmokeDetectorMeasurement;
+use App\Models\EnvMonStationMeasurement;
 
 class Team extends JetstreamTeam
 {
@@ -45,6 +46,16 @@ class Team extends JetstreamTeam
         return $this->hasOne('App\Models\Device');
     }
 
+    public function latestEnvStationMeasurement()
+    {
+        return $this->hasOne(EnvMonStationMeasurement::class)->latest('id');
+    }
+
+    public function oldestEnvStationMeasurement()
+    {
+        return $this->hasOne(EnvMonStationMeasurement::class)->latest('id');
+    }
+
     public function latestSmokeDetectorMeasurement()
     {
         return $this->hasOne(SmokeDetectorMeasurement::class)->latest('id');
@@ -57,6 +68,10 @@ class Team extends JetstreamTeam
 
     public function measurements()
     {
-        return $this->hasMany(SmokeDetectorMeasurement::class);
+        if ($this->type == 2){
+        return $this->hasMany(EnvMonStationMeasurement::class);
+        } else {
+            return $this->hasMany(SmokeDetectorMeasurement::class);
+        }
     }
 }

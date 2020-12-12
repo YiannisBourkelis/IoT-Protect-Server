@@ -18,7 +18,11 @@ class DeviceController extends Controller
     public function index()
     {
         return Auth::user()->ownedTeams()
-                        ->with(['latestSmokeDetectorMeasurement', 'oldestSmokeDetectorMeasurement'])
+                        ->with(['latestSmokeDetectorMeasurement', 
+                                'oldestSmokeDetectorMeasurement', 
+                                'latestEnvStationMeasurement',
+                                'oldestEnvStationMeasurement',
+                                ])
                         ->where('personal_team', 0)
                         ->simplePaginate(30);
     }
@@ -34,6 +38,7 @@ class DeviceController extends Controller
             return response(__METHOD__.", line:".__LINE__, 401);
         }
 
+        
         return $team->measurements()->orderByDesc('id')->simplePaginate(30);
     }
 
