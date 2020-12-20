@@ -48,22 +48,22 @@ class Team extends JetstreamTeam
 
     public function latestEnvStationMeasurement()
     {
-        return $this->hasOne(EnvMonStationMeasurement::class)->latest('id');
+        return $this->hasOne(EnvMonStationMeasurement::class)->orderby('id','desc')->take(1);
     }
 
     public function oldestEnvStationMeasurement()
     {
-        return $this->hasOne(EnvMonStationMeasurement::class)->latest('id');
+        return $this->hasOne(EnvMonStationMeasurement::class)->orderby('id','asc')->take(1);
     }
 
     public function latestSmokeDetectorMeasurement()
     {
-        return $this->hasOne(SmokeDetectorMeasurement::class)->latest('id');
+        return $this->hasOne(SmokeDetectorMeasurement::class)->orderby('id','desc')->take(1);
     }
 
     public function oldestSmokeDetectorMeasurement()
     {
-        return $this->hasOne(SmokeDetectorMeasurement::class)->oldest('id');
+        return $this->hasOne(SmokeDetectorMeasurement::class)->orderby('id','asc')->take(1);
     }
 
     public function measurements()
