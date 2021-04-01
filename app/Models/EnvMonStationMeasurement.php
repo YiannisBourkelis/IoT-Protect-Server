@@ -13,7 +13,7 @@ class EnvMonStationMeasurement extends Model
 
     protected $fillable = ['temperature', 'pressure', 'humidity', 'carbonMonoxide', 
                            'carbonDioxide', 'nitrogenDioxide', 'hydrogen',
-                           'PMS7003_MP_1', 'PMS7003_MP_2_5', 'PMS7003_MP_10'];
+                           'PMS7003_MP_1', 'PMS7003_MP_2_5', 'PMS7003_MP_10', 'uptime'];
 }
 
 /*
