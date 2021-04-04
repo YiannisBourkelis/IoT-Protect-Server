@@ -119,6 +119,9 @@ class DeviceController extends Controller
 
             //TODO: validation
             $new_item->save();
+
+
+            $new_item->firmware_upgrade_url = "https//iot.filoxeni.com/firmware/station1.1.bin";
     
             return $new_item;
         //}
