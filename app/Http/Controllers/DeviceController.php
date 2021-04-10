@@ -121,9 +121,15 @@ class DeviceController extends Controller
             $new_item->save();
 
             //check if firmware upgrade is required
+            $latest_version = '1.1';
 
-            $new_item->firmware_upgrade_url = "https//iot.filoxeni.com/firmware/station1.1.bin";
+            $upgrade_available = version_compare($request->firmware_version, $latest_version, '<');
+
             $new_item->firmware_version = $request->firmware_version;
+            $new_item->upgrade_available = $upgrade_available;
+            if ($upgrade_available){
+                $new_item->firmware_upgrade_url = "https//iot.filoxeni.com/firmware/station1.1.bin";
+            }
             //$new_item->reboot = 'true';
 
             return $new_item;
