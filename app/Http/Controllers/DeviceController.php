@@ -128,7 +128,7 @@ class DeviceController extends Controller
             $new_item->firmware_version = $request->firmware_version;
             $new_item->upgrade_available = $upgrade_available;
             if ($upgrade_available){
-                $new_item->firmware_upgrade_url = "http://www.dentist.gr/Downloads/EnvironmentalMonitoringStation.ino.esp32_v1_1.bin";
+                $new_item->firmware_upgrade_url = "http://www.dentist.gr/Downloads/EnvironmentalMonitoringStation.ino.esp32_v1_1_0.bin";
             }
             //$new_item->reboot = 'true';
 
