@@ -38,8 +38,8 @@ class DeviceController extends Controller
             return response(__METHOD__.", line:".__LINE__, 401);
         }
 
-        
         return $team->measurements()->orderByDesc('id')->simplePaginate(512);
+        //return $team->measurements()->orderByDesc('id')->simplePaginate(512, ['*'], 'page', 2);
     }
 
     public function read_last_measurement($team_id)
