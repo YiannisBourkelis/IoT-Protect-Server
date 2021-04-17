@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Team;
-use App\Models\SmokeDetectorMeasurement;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\EnvMonStationMeasurement;
+use App\Models\SmokeDetectorMeasurement;
 
 class DeviceController extends Controller
 {
@@ -138,6 +139,18 @@ class DeviceController extends Controller
 
 
         //return $device->team()->get();
+    }
+
+    public function avg_battery_voltage()
+    {
+        return DB::table('measurements_smoke_detector')
+                ->selectRaw('AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage, created_at')
+                ->groupByRaw('YEAR(measurements_smoke_detector.created_at),
+                            MONTH(measurements_smoke_detector.created_at),
+                            DAY(measurements_smoke_detector.created_at),
+                            HOUR(measurements_smoke_detector.created_at)
+                ')
+                ->get();
     }
 
     /**

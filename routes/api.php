@@ -25,3 +25,5 @@ Route::post('user/device/create', [DeviceController::class, 'createme'])->middle
 Route::post('/user/device/measurement', [DeviceController::class, 'add_measurement'])->middleware('auth:sanctum');
 Route::get('device/{team_id}/measurements', [DeviceController::class, 'read_measurements'])->middleware('auth:sanctum');
 Route::get('device/{team_id}/measurements/latest', [DeviceController::class, 'read_last_measurement'])->middleware('auth:sanctum');
+
+Route::get('avg_battery_voltage', [DeviceController::class, 'avg_battery_voltage']);
