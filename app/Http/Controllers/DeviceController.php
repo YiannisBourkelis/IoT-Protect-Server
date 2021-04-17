@@ -144,7 +144,7 @@ class DeviceController extends Controller
     public function avg_battery_voltage()
     {
         $avg = DB::table('measurements_smoke_detector')
-                ->selectRaw('AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage, created_at')
+                ->selectRaw('AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage, MIN(created_at) created_at')
                 ->groupByRaw('YEAR(measurements_smoke_detector.created_at),
                             MONTH(measurements_smoke_detector.created_at),
                             DAY(measurements_smoke_detector.created_at),
