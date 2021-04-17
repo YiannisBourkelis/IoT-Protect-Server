@@ -143,7 +143,7 @@ class DeviceController extends Controller
 
     public function avg_battery_voltage()
     {
-        return DB::table('measurements_smoke_detector')
+        $avg = DB::table('measurements_smoke_detector')
                 ->selectRaw('AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage, created_at')
                 ->groupByRaw('YEAR(measurements_smoke_detector.created_at),
                             MONTH(measurements_smoke_detector.created_at),
@@ -151,6 +151,9 @@ class DeviceController extends Controller
                             HOUR(measurements_smoke_detector.created_at)
                 ')
                 ->get();
+
+        return response(json_encode($avg))
+                ->header('Content-Type', 'application/json');
     }
 
     /**
