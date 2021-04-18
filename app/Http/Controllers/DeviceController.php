@@ -41,7 +41,7 @@ class DeviceController extends Controller
 
         //return $team->measurements()->orderByDesc('id')->simplePaginate(20);
         return $team->measurements()->orderByDesc('id')->simplePaginate(512);
-        
+
         //return $team->measurements()->orderByDesc('id')->simplePaginate(512, ['*'], 'page', 2);
     }
 
@@ -147,7 +147,7 @@ class DeviceController extends Controller
     {
         $avg = DB::table('measurements_smoke_detector')
              ->selectRaw('AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage, MAX(created_at) created_at')
-             ->where('created_at', '>=', '2021-04-19 21:00:00')
+             ->where('created_at', '>=', '2021-04-18 21:00:00')
              ->groupByRaw('YEAR(measurements_smoke_detector.created_at),
                            MONTH(measurements_smoke_detector.created_at),
                            DAY(measurements_smoke_detector.created_at),
