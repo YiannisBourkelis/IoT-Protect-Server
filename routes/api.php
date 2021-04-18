@@ -27,3 +27,4 @@ Route::get('device/{team_id}/measurements', [DeviceController::class, 'read_meas
 Route::get('device/{team_id}/measurements/latest', [DeviceController::class, 'read_last_measurement'])->middleware('auth:sanctum');
 
 Route::get('avg_battery_voltage', [DeviceController::class, 'avg_battery_voltage']);
+Route::get('recent_battery_voltage', [DeviceController::class, 'recent_battery_voltage']);

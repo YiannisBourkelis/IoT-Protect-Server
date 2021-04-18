@@ -160,6 +160,14 @@ class DeviceController extends Controller
                 ->header('Content-Type', 'application/json');
     }
 
+
+    public function recent_battery_voltage()
+    {
+        return SmokeDetectorMeasurement::orderBy('id','desc')->offset(0)->limit(256)->get();
+
+        //return SmokeDetectorMeasurement::paginate(10); // $team->measurements()->orderByDesc('id')->simplePaginate(512);
+    }
+
     /**
      * Display the specified resource.
      *
