@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/api/battery', function () {
+Route::get('/battery', function () {
     return view('battery');
 });
 
