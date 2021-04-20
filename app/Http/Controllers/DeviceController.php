@@ -168,8 +168,11 @@ class DeviceController extends Controller
              ->orderByRaw('id asc')
              ->get();
 
+             return $avg;
+             /*
         return response(json_encode($avg))
                 ->header('Content-Type', 'application/json');
+                */
     }
 
 

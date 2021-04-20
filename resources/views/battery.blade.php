@@ -12,6 +12,11 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	title: {
 		text: "Battery Values"
 	},
+	axisX: {
+		valueFormatString:"HH:mm D/M/Y",
+		labelWrap: true,
+		labelAngle: -45
+	},
 	axisY: {
 		title: "Milivolts",
 		titleFontSize: 24,
@@ -19,14 +24,20 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	data: [{
 		type: "spline",
+		xValueFormatString:"HH:mm D/M/Y",
 		dataPoints: dataPoints
 	}]
 });
 
+Date.prototype.addHours = function(h) {
+  this.setTime(this.getTime() + (h*60*60*1000));
+  return this;
+}
+
 function addData(data) {
 	for (var i = 0; i < data.length; i++) {
 		dataPoints.push({
-			x: new Date(data[i].created_at),
+			x: (new Date(data[i].created_at)).addHours(3),
 			y: parseFloat(data[i].avg_battery_voltage)
 		});
 	}
