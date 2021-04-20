@@ -39,8 +39,8 @@ class DeviceController extends Controller
             return response(__METHOD__.", line:".__LINE__, 401);
         }
 
-        //return $team->measurements()->orderByDesc('id')->simplePaginate(20);
-        return $team->measurements()->orderByDesc('id')->simplePaginate(512);
+        //return $team->measurements()->orderByDesc('id')->simplePaginate(10);
+        return $team->measurements()->orderByDesc('id')->simplePaginate(64);
 
         //return $team->measurements()->orderByDesc('id')->simplePaginate(512, ['*'], 'page', 2);
     }

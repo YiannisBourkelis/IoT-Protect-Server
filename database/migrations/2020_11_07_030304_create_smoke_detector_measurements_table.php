@@ -20,7 +20,7 @@ class CreateSmokeDetectorMeasurementsTable extends Migration
             $table->foreign('team_id')->references('id')->on('teams')->cascadeOnDelete();
 
             $table->integer('photoresistor')->nullable();
-            $table->decimal('battery_voltage', 3, 2)->nullable();
+            $table->unsignedSmallInteger('battery_voltage')->nullable();
             $table->string('uptime',64)->nullable();
         
             $table->timestamps();

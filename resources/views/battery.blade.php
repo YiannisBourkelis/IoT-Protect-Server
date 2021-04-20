@@ -13,7 +13,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		text: "Battery Values"
 	},
 	axisY: {
-		title: "Volts",
+		title: "Milivolts",
 		titleFontSize: 24,
 		includeZero: false
 	},
