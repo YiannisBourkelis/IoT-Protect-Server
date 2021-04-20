@@ -7,7 +7,7 @@ window.onload = function() {
 var dataPoints = [];
 
 var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
+	animationEnabled: false,
 	theme: "dark1",
 	title: {
 		text: "Battery Values"
