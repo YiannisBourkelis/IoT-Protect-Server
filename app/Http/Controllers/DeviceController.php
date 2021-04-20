@@ -143,7 +143,40 @@ class DeviceController extends Controller
         //return $device->team()->get();
     }
 
+    /**
+     * statistika ana 10 lepta
+     */
+    /*
+    SELECT 
+    AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage, 
+    FLOOR(UNIX_TIMESTAMP(created_at)/(10 * 60)) AS timekey,
+    MAX(created_at) created_at
+    FROM `measurements_smoke_detector` 
+    WHERE 1
+    GROUP BY
+    timekey
+    */
     public function avg_battery_voltage()
+    {
+        $avg = DB::table('measurements_smoke_detector')
+             ->selectRaw('AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage,
+                          FLOOR(UNIX_TIMESTAMP(created_at)/(10 * 60)) AS timekey, 
+                          MAX(created_at) created_at')
+             ->where('created_at', '>=', '2021-04-18 21:00:00')
+             ->groupByRaw('timekey
+                ')
+             ->orderByRaw('id asc')
+             ->get();
+
+        return response(json_encode($avg))
+                ->header('Content-Type', 'application/json');
+    }
+
+
+    /**
+     * statistika ana wra
+     */
+    public function avg_battery_voltage_hourly()
     {
         $avg = DB::table('measurements_smoke_detector')
              ->selectRaw('AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage, MAX(created_at) created_at')
