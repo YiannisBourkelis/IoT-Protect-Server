@@ -162,7 +162,7 @@ class DeviceController extends Controller
              ->selectRaw('AVG(measurements_smoke_detector.battery_voltage) avg_battery_voltage,
                           FLOOR(UNIX_TIMESTAMP(created_at)/(10 * 60)) AS timekey, 
                           MAX(created_at) created_at')
-             ->where('created_at', '>=', '2021-04-18 21:00:00')
+             ->where('created_at', '>=', '2021-04-24 15:46:39')
              ->groupByRaw('timekey
                 ')
              ->orderByRaw('id asc')
